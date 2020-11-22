@@ -1,0 +1,10 @@
+{
+  "name": "recipes-site",
+  "version": "0.1.0",
+  "description": "recipe site for Saitynai module",
+  "author": "Marijonas Naudziunas",
+  "private": true,
+  "scripts": {
+    "postinstall": "npm install express"
+  }
+}

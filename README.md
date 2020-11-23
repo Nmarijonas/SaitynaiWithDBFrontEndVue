@@ -1,7 +1,5 @@
 # Front-end part for recipes site
 
-set git remote to heroku:
-heroku git:remote -a recipessaitynaisite
+npm run build
 
-push dist folder to Heroku:
-git subtree push --prefix dist heroku master
+git push heroku main

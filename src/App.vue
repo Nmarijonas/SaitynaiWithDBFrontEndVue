@@ -6,15 +6,18 @@
         <li class="nav-item">
           <router-link class="btn btn-primary" to="/recipes">Recipes</router-link>
         </li>
+        <li v-if="currentUser" class="nav-item">
+          <router-link class="btn btn-primary" to="/profile">My Profile</router-link>
+        </li>
       </div>
       <div clas ="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
         <ul class="navbar-nav text-right">
-        <li class="nav-item">
+        <li v-show="!currentUser" class="nav-item">
           <router-link to="/login" class="nav-link">
             <font-awesome-icon icon="sign-in-alt" />Login
           </router-link>
         </li>
-        <li class="nav-item">
+        <li v-show="currentUser" class="nav-item">
           <a class="nav-link" href @click.prevent="logOut">
             <font-awesome-icon icon="sign-out-alt"/>
             LogOut

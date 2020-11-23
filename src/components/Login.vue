@@ -9,14 +9,17 @@
       />
       <form name="form" @submit.prevent="handleLogin">
         <div class="form-group">
-                    <label for="username">Username</label>
-                    <input
-                        v-model="user.username"
-                        v-validate="'required'"
-                        type="text"
-                        class="form-control"
-                        name="username"
-                    />
+          <label>Username</label>
+          <label>
+            <input
+                v-model="user.username"
+                v-validate="'required'"
+                type="text"
+                class="form-control"
+                name="username"
+            />
+          </label>
+          <!--suppress JSUnresolvedVariable -->
           <div
               v-if="errors.has('username')"
               class="alert alert-danger"
@@ -25,14 +28,17 @@
           </div>
         </div>
         <div class="form-group">
-                    <label for="password">Password</label>
-                    <input
-                        v-model="user.password"
-                        v-validate="'required'"
-                        type="password"
-                        class="form-control"
-                        name="password"
-                    />
+          <label>Password</label>
+          <label>
+            <input
+                v-model="user.password"
+                v-validate="'required'"
+                type="password"
+                class="form-control"
+                name="password"
+            />
+          </label>
+          <!--suppress JSUnresolvedVariable -->
           <div
               v-if="errors.has('password')"
               class="alert alert-danger"
@@ -40,6 +46,14 @@
           >Password is required!
           </div>
         </div>
+        <router-link :to="{
+                            name: 'recipe-details',
+                            // params: {idrecipes: recipe.idrecipes },
+                        }">
+          <div class="newAccount">
+            <a>Create new account </a>
+          </div>
+        </router-link>
         <div class="form-group">
           <button class="btn btn-primary btn-block" :disabled="loading">
             <span v-show="loading" class="spinner-border spinner-border-sm"></span>
@@ -128,6 +142,17 @@ label {
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
 }
 
+a {
+  color: greenyellow;
+}
+
+.newAccount {
+  position: relative;
+  left: 100px;
+  top: 90px;
+  font-size: 15px;
+}
+
 .profile-img-card {
   width: 96px;
   height: 96px;
@@ -137,4 +162,6 @@ label {
   -webkit-border-radius: 50%;
   border-radius: 50%;
 }
+
+
 </style>

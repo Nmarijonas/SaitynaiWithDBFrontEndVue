@@ -1,12 +1,13 @@
 import http from "../http-common";
 import authHeader from './auth-header';
+
 class RecipeDataService {
     getAll() {
-        return http.get("/recipes");
+        return http.get("/recipes", {headers: authHeader()});
     }
 
     get(idrecipes) {
-        return http.get(`/recipes/${idrecipes}`, { headers: authHeader() });
+        return http.get(`/recipes/${idrecipes}`, {headers: authHeader()});
     }
 
     create(data) {

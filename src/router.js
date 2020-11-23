@@ -26,6 +26,11 @@ export default new Router({
             path: "/login",
             name: "login",
             component: () => import("./components/Login")
+        },
+        {
+            path: "/profile",
+            name: "profile",
+            component: () => import("./components/Profile")
         }
     ]
 });

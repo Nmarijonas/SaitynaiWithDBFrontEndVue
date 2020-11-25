@@ -14,8 +14,6 @@ import {
   faSignOutAlt
 } from '@fortawesome/free-solid-svg-icons';
 
-
-// Vue.config.productionTip = false;
 library.add(faHome, faUser, faUserPlus, faSignInAlt, faSignOutAlt);
 
 Vue.config.productionTip = false;

@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0d03d6"],{"66aa":function(e,a,n){"use strict";n.r(a);var o=function(){var e=this,a=e.$createElement,n=e._self._c||a;return n("h1",[e._v(" Profile page ")])},t=[];console.log(localStorage.getItem("user"));var l={name:"Profile"},r=l,c=n("2877"),s=Object(c["a"])(r,o,t,!1,null,"08d935a6",null);a["default"]=s.exports}}]);
+//# sourceMappingURL=chunk-2d0d03d6.283856b0.js.map

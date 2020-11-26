@@ -80,6 +80,7 @@ nav {
       left: -240px;
       transition: 300ms ease all;
       top: 60px;
+      z-index: 1;
 
       &.active {
         left: 0;

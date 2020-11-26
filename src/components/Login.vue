@@ -46,14 +46,6 @@
           >Password is required!
           </div>
         </div>
-        <router-link :to="{
-                            name: 'recipe-details',
-                            // params: {idrecipes: recipe.idrecipes },
-                        }">
-          <div class="newAccount">
-            <a>Create new account </a>
-          </div>
-        </router-link>
         <div class="form-group">
           <button class="btn btn-primary btn-block" :disabled="loading">
             <span v-show="loading" class="spinner-border spinner-border-sm"></span>
@@ -64,6 +56,15 @@
           <div v-if="message" class="alert alert-danger" role="alert">{{ message }}</div>
         </div>
       </form>
+      <i style="font-size: 15px; margin-top: 40px;">Dont have an account?</i>
+      <router-link :to="{
+                            name: 'recipe-details',
+                            // params: {idrecipes: recipe.idrecipes },
+                        }">
+        <div>
+          <a style="font-size: 15px; color: greenyellow; background-color: gray">Create new account </a>
+        </div>
+      </router-link>
     </div>
   </div>
 </template>
@@ -127,7 +128,7 @@ label {
 
 .card-container.card {
   max-width: 350px !important;
-  padding: 40px 40px;
+  padding: 40px 20px;
 }
 
 .card {
@@ -142,17 +143,6 @@ label {
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
 }
 
-a {
-  color: greenyellow;
-}
-
-.newAccount {
-  position: relative;
-  left: 100px;
-  top: 90px;
-  font-size: 15px;
-}
-
 .profile-img-card {
   width: 96px;
   height: 96px;
@@ -161,6 +151,15 @@ a {
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   border-radius: 50%;
+}
+
+@media screen and (max-width: 759px) {
+  .card {
+    /*margin-left: 60px;*/
+    margin: 60px 0 60px 60px;
+    width: 100%;
+  }
+
 }
 
 

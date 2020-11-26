@@ -10,6 +10,6 @@ heroku git:remote -a recipessaitynaisite
 
 git add .
 
-git commit -an "Improve nav bar"
+git commit -am "Improve nav bar"
 
 git push heroku main

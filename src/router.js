@@ -31,6 +31,11 @@ export default new Router({
             path: "/profile",
             name: "profile",
             component: () => import("./components/Profile")
+        },
+        {
+            path: "/logout",
+            name: "logout",
+            component: () => import("./components/Logout")
         }
     ]
 });

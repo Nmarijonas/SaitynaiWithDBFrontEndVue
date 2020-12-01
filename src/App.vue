@@ -3,9 +3,9 @@
     <ResponsiveNavigation
         :nav-links="navLinks"
         :image-path="require('./assets/recipe-book.png')"
+        :current-user="$store.state.auth.user"
     />
     <router-view
-
     />
   </div>
 </template>
@@ -55,20 +55,28 @@ export default {
       {
         text: 'Home',
         path: '/',
-        icon: 'home'
+        icon: 'home',
+        role: ''
       },
       {
         text: 'Recipes',
         path: '/recipes',
-        icon: 'restaurant'
+        icon: 'restaurant',
+        role: ''
       },
       {
         text: 'Login',
         path: '/login',
-        icon: 'log-in'
+        icon: 'log-in',
+        role: ''
+      },
+      {
+        text: 'Logout',
+        path: '/logout',
+        icon: 'log-out',
+        role: 'user'
       }
-    ],
-
+    ]
   })
 }
 </script>

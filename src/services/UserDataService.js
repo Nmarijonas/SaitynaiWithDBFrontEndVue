@@ -14,3 +14,5 @@ class UserDataService {
         return http.post("/recipes", data);
     }
 }
+
+export default new UserDataService();

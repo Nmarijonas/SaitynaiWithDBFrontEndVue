@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://recipessaitynai.herokuapp.com/api/auth/';
+const API_URL = 'https://back-end-recipessite.herokuapp.com/api/auth/';
 
 class AuthService {
     login(user) {
@@ -19,8 +19,8 @@ class AuthService {
         localStorage.removeItem('user');
     }
 
-    signin(user) {
-        return axios.post(API_URL + 'signin', {
+    signup(user) {
+        return axios.post(API_URL + 'signup', {
             username: user.username,
             password: user.password
         });

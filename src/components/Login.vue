@@ -58,7 +58,7 @@
       </form>
       <i style="font-size: 15px; margin-top: 40px;">Dont have an account?</i>
       <router-link :to="{
-                            name: 'recipe-details',
+                            // name: 'recipe-details',
                             // params: {idrecipes: recipe.idrecipes },
                         }">
         <div>
@@ -86,11 +86,11 @@ export default {
       return this.$store.state.auth.status.loggedIn;
     }
   },
-  // created() {
-  //   if (this.loggedIn) {
-  //     this.$router.push('/profile');
-  //   }
-  // },
+  created() {
+    if (this.loggedIn) {
+      this.$router.push('/profile');
+    }
+  },
   methods: {
     handleLogin() {
       this.loading = true;
@@ -103,7 +103,7 @@ export default {
         if (this.user.username && this.user.password) {
           this.$store.dispatch('auth/login', this.user).then(
               () => {
-                this.$router.push('/recipes');
+                this.$router.push('/profile');
               },
               error => {
                 this.loading = false;
@@ -155,9 +155,10 @@ label {
 
 @media screen and (max-width: 759px) {
   .card {
-    /*margin-left: 60px;*/
-    margin: 60px 0 60px 60px;
-    width: 100%;
+    position: absolute;
+    left: 70px;
+    right: 10px;
+    margin: 50px auto 25px;
   }
 
 }

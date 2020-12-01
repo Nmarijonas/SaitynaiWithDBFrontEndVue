@@ -15,11 +15,9 @@
   </div>
 </template>
 <script>
-console.log(localStorage.getItem('user'))
 export default {
   name: 'home',
-  components: {
-  }
+  components: {}
 }
 </script>
 <style lang="scss" scoped>
@@ -31,17 +29,20 @@ export default {
   background-repeat: no-repeat;
   height: 500px;
 }
+
 .hero-body .title {
   text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.6);
   padding: 40px 0 20px 0;
   font-size: 60px;
-  color:greenyellow;
+  color: greenyellow;
 }
+
 .subtitle {
   text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.7);
   font-size: 30px;
 }
-.hero-body .version{
+
+.hero-body .version {
   position: absolute;
   top: 500px;
   right: 20px;
@@ -49,6 +50,7 @@ export default {
   text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.6);
   color: greenyellow;
 }
+
 .is-xl {
   font-size: 1.7rem;
 }

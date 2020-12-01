@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default axios.create({
-  baseURL: "https://recipessaitynai.herokuapp.com/api/",
+  baseURL: "https://back-end-recipessite.herokuapp.com/api/",
   headers: {
     "Content-type": "application/json"
   }

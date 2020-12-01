@@ -26,13 +26,13 @@ export const auth = {
             commit('logout');
         },
         signup({commit}, user) {
-            return AuthService.signin(user).then(
+            return AuthService.signup(user).then(
                 response => {
-                    commit('signinSuccess');
+                    commit('signupSuccess');
                     return Promise.resolve(response.data);
                 },
                 error => {
-                    commit('signinFailure');
+                    commit('signupFailure');
                     return Promise.reject(error);
                 }
             );
@@ -57,7 +57,5 @@ export const auth = {
         signupFailure(state) {
             state.status.loggedIn = false;
         }
-
-
     }
 }

@@ -1,18 +1,55 @@
 <template>
-  <div v-if="currentRecipe">
-    <h4>Recipe</h4>
-    <form>
-      <div class="form-group">
-        <label for="title">Title</label>
-        <input type="text" class="form-control" id="title"
-               v-model="currentRecipe.title"/>
+  <div class="recipeItem container">
+    <h4 style="margin-top: 10px; text-align: center">Recipe</h4>
+    <div class="recipe-info">
+      <div v-if="this.$route.params.idrecipes">
+        <div>
+          <label><strong>Title:</strong></label> {{ currentRecipe.title }}
+        </div>
+        <div>
+          <label><strong>Ingredients:</strong></label> {{ currentRecipe.ingredients }}
+        </div>
+        <div>
+          <label><strong>Description:</strong></label> {{ currentRecipe.description }}
+        </div>
+        <div>
+          <label><strong>Recipe:</strong></label> {{ currentRecipe.recipe }}
+        </div>
+        <div>
+          <label><strong>Published:</strong></label> {{ currentRecipe.published }}
+        </div>
       </div>
-    </form>
+      <!--      <div class="comment-info">-->
+      <!--        <div class="list list-container">-->
+      <!--          <ul style="list-style-type: none">-->
+      <!--            <li class="list-items" v-for="(comment, index) in currentRecipe.comments" :key="index">-->
+      <!--              <router-link :to="{-->
+      <!--                            name: 'recipe-details',-->
+      <!--                            params: {idrecipes: recipe.idrecipes },-->
+      <!--                        }">-->
+      <!--                {{ recipe.title }}-->
+      <!--              </router-link>-->
+      <!--            </li>-->
+      <!--          </ul>-->
+      <!--        </div>-->
+      <!--      </div>-->
+    </div>
+    <!--    <div class="commentItem container">-->
+    <h4 style="margin-top: 10px; text-align: center">Comments</h4>
+    <div class="recipe-info">
+      <li style="list-style-type: none" class="list-items" v-for="(comment, index) in currentRecipe.comments"
+          :key="index">
+        {{ comment.comment }}
+        <!--        <router-link :to="{-->
+        <!--                            name: 'recipe-details',-->
+        <!--                            params: {idrecipes: recipe.idrecipes },-->
+        <!--                        }">-->
+        <!--          {{ recipe.title }}-->
+        <!--        </router-link>-->
+      </li>
+    </div>
   </div>
-  <div v-else>
-    <br/>
-    <p>Please click on a Recipe...</p>
-  </div>
+  <!--  </div>-->
 </template>
 
 <script>
@@ -46,8 +83,18 @@ export default {
 </script>
 
 <style>
-.edit-form {
-  max-width: 300px;
-  margin: auto;
+div.recipe-info {
+  padding: 10px 30px;
+  text-align: left;
+  width: 100%;
+  max-width: 500px;
+  margin: 25px auto;
+}
+
+@media screen and (max-width: 759px) {
+  div.recipe-info {
+    margin-left: 70px;
+    width: 80%;
+  }
 }
 </style>

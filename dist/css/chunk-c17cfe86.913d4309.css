@@ -1,0 +1,7 @@
+.list{margin-top:10px;max-width:350px;padding:40px 20px}h1{color:#adff2f;letter-spacing:1px}#recipesListId{margin:0;padding:0;text-align:left}@media screen and (max-width:759px){.list{position:absolute;left:70px;right:10px;margin:50px auto 25px}
+  /*  !*border: 2px solid gray;*!*/
+  /*  !*margin-top: 10px;*!*/
+  /*  !*left: 70px;*!*/
+  /*  !*right: 10px;*!*/
+  /*  !*!*height: 50px;*!*!*/
+  /*  !*text-align: left;*!*/#recipesListId #recipesItemId{border:1px solid #adff2f}#recipesItemId{font-size:20px;text-align:center}}

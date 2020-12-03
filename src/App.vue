@@ -140,6 +140,26 @@ body {
   }
 }
 
+ul li {
+  list-style: none;
+  border-left: 2px solid greenyellow;
+  margin: 10px;
+  position: relative;
+  left: 0;
+  transition: 0.5s;
+}
+
+ul li:hover {
+  left: 10px;
+}
+
+ul li p {
+  position: relative;
+  display: inline-block;
+  padding: 8px;
+  margin: 0;
+}
+
 .site-info {
   color: green;
   margin-bottom: 20px;

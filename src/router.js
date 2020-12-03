@@ -18,7 +18,7 @@ export default new Router({
             component: () => import("./components/RecipesList"),
         },
         {
-            path: "/recipes/:id",
+            path: "/recipes/:idrecipes",
             name: "recipe-details",
             component: () => import("./components/Recipe")
         },

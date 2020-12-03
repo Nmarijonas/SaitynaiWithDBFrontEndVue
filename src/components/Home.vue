@@ -22,7 +22,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .hero {
-  text-align: center;
   background-image: url('https://www.maggi.co.uk/sites/default/files/styles/maggi_desktop_image_style/public/NUK1265%20maggi%20Recipes%20banner%201500x700px%20opt2A.jpg?h=4f5b30f1&itok=DcsF1RwA');
   background-size: cover;
   background-position: center;
@@ -53,5 +52,19 @@ export default {
 
 .is-xl {
   font-size: 1.7rem;
+}
+
+@media screen and (max-width: 759px) {
+  .hero-body .title {
+    position: absolute;
+    left: 70px;
+    right: 10px;
+    margin: 50px auto 25px;
+  }
+  .hero-body .version {
+    font-size: 20px;
+    left: 70px;
+    right: 10px;
+  }
 }
 </style>

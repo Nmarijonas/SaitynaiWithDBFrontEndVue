@@ -90,10 +90,6 @@ nav {
 }
 
 @media screen and (max-width: 759px) {
-  html, body {
-    height: 100%;
-    width: 100%;
-  }
   nav {
     width: 100%;
 
@@ -104,6 +100,7 @@ nav {
       left: -240px;
       transition: 200ms ease all;
       top: 60px;
+      height: 100%;
       z-index: 1;
 
       &.active {

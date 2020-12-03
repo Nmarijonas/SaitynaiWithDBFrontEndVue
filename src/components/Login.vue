@@ -160,7 +160,6 @@ label {
     right: 10px;
     margin: 50px auto 25px;
   }
-
 }
 
 

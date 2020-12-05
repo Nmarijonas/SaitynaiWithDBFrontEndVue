@@ -2,7 +2,7 @@
   <div class="recipeItem container">
     <h4 style="margin-top: 10px; text-align: center">Recipe</h4>
     <div class="recipe-info">
-      <div v-if="this.$route.params.idrecipes">
+      <div>
         <div>
           <label><strong>Title:</strong></label> {{ currentRecipe.title }}
         </div>
@@ -53,13 +53,13 @@
 </template>
 
 <script>
-import RecipeDataService from "../services/RecipeDataService";
+import RecipeDataService from "../../services/RecipeDataService";
 
 export default {
   name: "recipe",
   data() {
     return {
-      currentRecipe: null,
+      currentRecipe: {},
       message: ''
     };
   },

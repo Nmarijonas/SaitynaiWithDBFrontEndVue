@@ -1,24 +1,3 @@
-<!--<template>-->
-<!--  <div class="col-md-11">-->
-<!--    <h1>Recipes List</h1>-->
-<!--    <div class="list list-container">-->
-<!--      <ul style="list-style-type: none">-->
-<!--        <li class="list-items" v-for="(recipe, index) in recipes" :key="index">-->
-<!--          <router-link class="link-items" :to="{-->
-<!--                            name: 'recipe-details',-->
-<!--                            params: {idrecipes: recipe.idrecipes },-->
-<!--                        }">-->
-<!--            {{ recipe.title }}-->
-<!--          </router-link>-->
-<!--        </li>-->
-<!--      </ul>-->
-<!--    </div>-->
-<!--    <div class="col-md-6">-->
-<!--      <router-view @refreshData="refreshList"></router-view>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</template>-->
-
 <template>
   <div class="list container">
     <h1>Recipes</h1>
@@ -92,18 +71,6 @@ h1 {
     right: 10px;
     margin: 50px auto 25px;
   }
-  /*#recipesListId {*/
-  /*  !*border: 2px solid gray;*!*/
-  /*  !*margin-top: 10px;*!*/
-  /*  !*left: 70px;*!*/
-  /*  !*right: 10px;*!*/
-  /*  !*!*height: 50px;*!*!*/
-  /*  !*text-align: left;*!*/
-  /*  position: absolute;*/
-  /*  left: 70px;*/
-  /*  right: 10px;*/
-  /*  margin: 0 auto 25px;*/
-  /*}*/
 
   #recipesListId #recipesItemId {
     border: 1px solid greenyellow;

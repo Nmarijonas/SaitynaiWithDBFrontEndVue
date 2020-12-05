@@ -33,18 +33,35 @@ export default {
   },
   computed: {
     navBar: function () {
-      return this.currentUser
-          ? this.loggedIn
-          : this.notLoggedIn
+      const user = 'ROLE_USER';
+      const admin = 'ROLE_ADMIN';
+      let userRole = '';
+      if (this.currentUser !== null) {
+        userRole = this.currentUser.roles[0];
+      }
+      if (this.currentUser === null) {
+        return this.notLoggedIn;
+      } else if (userRole === user) {
+        return this.loggedInUser;
+      } else if (userRole === admin) {
+        return this.loggedInAdmin;
+      } else {
+        return this.notLoggedIn;
+      }
     },
-    loggedIn: function () {
+    loggedInUser: function () {
       return this.navLinks.filter(function (link) {
-        return link.role === 'user'
+        return link.role[1] === 'user'
+      })
+    },
+    loggedInAdmin: function () {
+      return this.navLinks.filter(function (link) {
+        return link.role[2] === 'admin'
       })
     },
     notLoggedIn: function () {
       return this.navLinks.filter(function (link) {
-        return link.role === ''
+        return link.role[0] === 'guest';
       })
     }
   }

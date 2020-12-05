@@ -15,27 +15,32 @@ export default new Router({
         {
             path: "/recipes",
             name: "recipes",
-            component: () => import("./components/RecipesList"),
+            component: () => import("./components/Recipe/RecipesList"),
         },
         {
             path: "/recipes/:idrecipes",
             name: "recipe-details",
-            component: () => import("./components/Recipe")
+            component: () => import("./components/Recipe/Recipe")
         },
         {
             path: "/login",
             name: "login",
-            component: () => import("./components/Login")
+            component: () => import("./components/Login/Login")
+        },
+        {
+            path: "/signup",
+            name: "signup",
+            component: () => import("./components/Login/Signup")
         },
         {
             path: "/profile",
             name: "profile",
-            component: () => import("./components/Profile")
+            component: () => import("./components/Login/Profile")
         },
         {
             path: "/logout",
             name: "logout",
-            component: () => import("./components/Logout")
+            component: () => import("./components/Login/Logout")
         }
     ]
 });

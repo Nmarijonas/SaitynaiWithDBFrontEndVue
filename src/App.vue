@@ -56,25 +56,31 @@ export default {
         text: 'Home',
         path: '/',
         icon: 'home',
-        role: ''
+        role: ['guest', 'user', 'admin']
       },
       {
         text: 'Recipes',
         path: '/recipes',
         icon: 'restaurant',
-        role: ''
+        role: ['guest', 'user', 'admin']
+      },
+      {
+        text: 'Profile',
+        path: '/profile',
+        icon: 'person',
+        role: ['', 'user', 'admin']
       },
       {
         text: 'Login',
         path: '/login',
         icon: 'log-in',
-        role: ''
+        role: ['guest', '', '']
       },
       {
         text: 'Logout',
         path: '/logout',
         icon: 'log-out',
-        role: 'user'
+        role: ['', 'user', 'admin']
       }
     ]
   })

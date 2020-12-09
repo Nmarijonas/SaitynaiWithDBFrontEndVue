@@ -1,17 +1,18 @@
 <template>
-  <div class="list container">
-    <h1>Recipes</h1>
-    <ul id="recipesListId">
-      <li id="recipesItemId" v-for="(recipe,index) in recipes" :key="index">
-        <router-link class="link-items" :to="{
+  <div class="col-md-12">
+    <div class="listRecipes listRecipes-container">
+      <h1>Recipes</h1>
+      <ul id="recipesListId">
+        <li id="recipesItemId" v-for="(recipe,index) in recipes" :key="index">
+          <router-link class="link-items" :to="{
                                     name: 'recipe-details',
                                     params: {idrecipes: recipe.idrecipes },
                                 }">
-          {{ recipe.title }}
-        </router-link>
-      </li>
-    </ul>
-
+            {{ recipe.title }}
+          </router-link>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -45,41 +46,54 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.listRecipes-container.listRecipes {
+  max-width: 350px !important;
+}
 
-.list {
-  margin-top: 10px;
-  max-width: 350px;
+.listRecipes {
+  margin: 10px auto 10px;
   padding: 40px 20px;
 }
 
 h1 {
   color: greenyellow;
   letter-spacing: 1px;
+  text-shadow: 4px 4px 4px green;
+  background-color: ghostwhite;
 }
 
 #recipesListId {
-  margin: 0;
+  margin: 30px auto 10px;
   padding: 0;
-  text-align: left;
+  text-align: center;
+}
+
+#recipesItemId {
+  margin: 10px auto;
+  text-align-all: center;
+}
+
+.link-items {
+  text-decoration: none;
+  display: block;
 }
 
 @media screen and (max-width: 759px) {
-  .list {
+  .listRecipes {
     position: absolute;
     left: 70px;
     right: 10px;
-    margin: 50px auto 25px;
+    margin: 10px auto 25px;
   }
 
   #recipesListId #recipesItemId {
-    border: 1px solid greenyellow;
-  }
-
-  #recipesItemId {
-    font-size: 20px;
-    text-align: center;
+    background-color: whitesmoke;
+    border: 2px solid greenyellow;
+    border-radius: 5px;
+    -moz-box-shadow: 0 2px 2px green;
+    -webkit-box-shadow: 0 2px 2px green;
+    box-shadow: 0 2px 2px green;
   }
 }
-
 </style>

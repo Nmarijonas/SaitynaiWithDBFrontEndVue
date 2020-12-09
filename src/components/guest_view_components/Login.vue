@@ -1,29 +1,3 @@
-<!--<template>-->
-<!--  <div>-->
-<!--    <h4>Register</h4>-->
-<!--    <form @submit.prevent="register">-->
-<!--      <label for="name">Name</label>-->
-<!--      <div>-->
-<!--        <input id="name" type="text" v-model="name" required autofocus>-->
-<!--      </div>-->
-
-<!--      <label for="password">Password</label>-->
-<!--      <div>-->
-<!--        <input id="password" type="password" v-model="password" required>-->
-<!--      </div>-->
-
-<!--      <label for="password-confirm">Confirm Password</label>-->
-<!--      <div>-->
-<!--        <input id="password-confirm" type="password" v-model="password_confirmation" required>-->
-<!--      </div>-->
-
-<!--      <div>-->
-<!--        <button type="submit">Register</button>-->
-<!--      </div>-->
-<!--    </form>-->
-<!--  </div>-->
-<!--</template>-->
-
 <template>
   <div class="col-md-12">
     <div class="card card-container">
@@ -33,7 +7,7 @@
           alt="avatar_2x"
           class="profile-img-card"
       />
-      <form name="form" @submit.prevent="handleSignup">
+      <form name="form" @submit.prevent="handleLogin">
         <div class="form-group">
           <label>Username</label>
           <label>
@@ -53,7 +27,6 @@
           >Username is required!
           </div>
         </div>
-
         <div class="form-group">
           <label>Password</label>
           <label>
@@ -63,7 +36,6 @@
                 type="password"
                 class="form-control"
                 name="password"
-                ref="password"
             />
           </label>
           <!--suppress JSUnresolvedVariable -->
@@ -74,28 +46,7 @@
           >Password is required!
           </div>
         </div>
-
         <div class="form-group">
-          <label>Repeat Password</label>
-          <label>
-            <input
-                v-model="user.repeated_password"
-                v-validate="'required|confirmed:password'"
-                type="password"
-                data-vv-as="password"
-                class="form-control"
-                name="repeat_password"
-            >
-          </label>
-          <!--suppress JSUnresolvedVariable -->
-
-          <div
-              v-if="errors.has('repeat_password')"
-              class="alert alert-danger"
-              role="alert"
-          >{{ errors.first('repeat_password') }}
-          </div>
-
           <button class="btn btn-primary btn-block" :disabled="loading">
             <span v-show="loading" class="spinner-border spinner-border-sm"></span>
             <span>Login</span>
@@ -105,41 +56,41 @@
           <div v-if="message" class="alert alert-danger" role="alert">{{ message }}</div>
         </div>
       </form>
-      <i style="font-size: 15px; margin-top: 40px;">Already have account?</i>
+      <i style="font-size: 15px; margin-top: 40px;">Dont have an account?</i>
       <router-link :to="{
-                             name: 'login'
+                             name: 'signup'
                         }">
-        <a style="font-size: 15px; color: greenyellow; background-color: gray">Login </a>
+        <a style="font-size: 15px; color: greenyellow; background-color: gray">Create new account </a>
       </router-link>
     </div>
   </div>
 </template>
 
 <script>
-// import {required, minLength, sameAs} from "vee-validate"
 import User from '../../models/user';
 
 export default {
-  name: "Signup",
+  name: 'Login',
   data() {
     return {
-      user: new User('', '', ''),
+      user: new User('', ''),
       loading: false,
       message: ''
     };
   },
-  // computed: {
-  //   loggedIn() {
-  //     return this.$store.state.auth.status.loggedIn;
-  //   }
-  // },
-  // created() {
-  //   if (this.loggedIn) {
-  //     this.$router.push('/profile');
-  //   }
-  // },
+  computed: {
+    loggedIn() {
+      return this.$store.state.auth.status.loggedIn;
+    }
+  },
+  created() {
+    if (this.loggedIn) {
+      this.$alert("123")
+      this.$router.push('/profile');
+    }
+  },
   methods: {
-    handleSignup() {
+    handleLogin() {
       this.loading = true;
       this.$validator.validateAll().then(isValid => {
         if (!isValid) {
@@ -148,10 +99,9 @@ export default {
         }
 
         if (this.user.username && this.user.password) {
-          this.$store.dispatch('auth/signup', this.user).then(
+          this.$store.dispatch('auth/login', this.user).then(
               () => {
-                 this.$router.push('/login');
-                this.$swal('Successful', 'Now login and create some recipes!', 'OK');
+                this.$router.push('/profile');
               },
               error => {
                 this.loading = false;
@@ -164,8 +114,7 @@ export default {
         }
       });
     }
-  },
-
+  }
 };
 </script>
 
@@ -210,6 +159,4 @@ label {
     margin: 50px auto 25px;
   }
 }
-
-
 </style>

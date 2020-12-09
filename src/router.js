@@ -15,32 +15,53 @@ export default new Router({
         {
             path: "/recipes",
             name: "recipes",
-            component: () => import("./components/Recipe/RecipesList"),
+            component: () => import("./components/RecipesList"),
+        },
+        {
+            path: "/myRecipes",
+            name: "myRecipes",
+            component: () => import("./components/user_admin_view_components/user_components/IndividualRecipesList")
+
+        },
+        {
+            path: "/myRecipes/:idrecipes",
+            name: "myRecipe-details",
+            component: () => import("./components/user_admin_view_components/user_components/IndividualRecipe")
+        },
+        {
+            path: "/addRecipe",
+            name: "add-recipe",
+            component: () => import("./components/user_admin_view_components/user_components/addRecipe")
+        },
+        {
+            path: "/updateRecipe",
+            name: "update-recipe",
+            component: () => import("./components/user_admin_view_components/user_components/updateRecipe")
         },
         {
             path: "/recipes/:idrecipes",
             name: "recipe-details",
-            component: () => import("./components/Recipe/Recipe")
+            component: () => import("./components/Recipe")
         },
         {
             path: "/login",
             name: "login",
-            component: () => import("./components/Login/Login")
+            component: () => import("./components/guest_view_components/Login")
         },
         {
             path: "/signup",
             name: "signup",
-            component: () => import("./components/Login/Signup")
+            component: () => import("./components/guest_view_components/Signup")
         },
         {
             path: "/profile",
             name: "profile",
-            component: () => import("./components/Login/Profile")
+            component: () => import("./components/user_admin_view_components/Profile")
         },
         {
             path: "/logout",
             name: "logout",
-            component: () => import("./components/Login/Logout")
+            component: () => import("./components/user_admin_view_components/Logout")
         }
     ]
 });

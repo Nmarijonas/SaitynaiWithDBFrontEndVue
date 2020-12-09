@@ -57,13 +57,11 @@ export default {
 @media screen and (max-width: 759px) {
   .hero-body .title {
     position: absolute;
-    left: 70px;
-    right: 10px;
+    left: 60px;
     margin: 50px auto 25px;
   }
   .hero-body .version {
     font-size: 20px;
-    left: 70px;
     right: 10px;
   }
 }

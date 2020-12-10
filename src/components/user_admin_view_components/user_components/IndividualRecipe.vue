@@ -17,7 +17,7 @@
             <label><strong>Recipe:</strong></label> {{ currentRecipe.recipe }}
           </div>
           <div>
-            <label><strong>Published:</strong></label> {{ currentRecipe.published }}
+            <label><strong>Published:</strong></label> {{ currentRecipe.published ? "Published" : "Pending" }}
           </div>
         </div>
         <router-link class="badge badge-warning" :to="{
@@ -26,25 +26,6 @@
                                 }">
           edit
         </router-link>
-        <!--        <a style="margin: 10px auto" class="badge badge-warning"-->
-        <!--           :href="'/tutorials/' + currentRecipe.idrecipes"-->
-        <!--        >-->
-        <!--          Edit-->
-        <!--        </a>-->
-        <!--      <div class="comment-info">-->
-        <!--        <div class="list list-container">-->
-        <!--          <ul style="list-style-type: none">-->
-        <!--            <li class="list-items" v-for="(comment, index) in currentRecipe.comments" :key="index">-->
-        <!--              <router-link :to="{-->
-        <!--                            name: 'recipe-details',-->
-        <!--                            params: {idrecipes: recipe.idrecipes },-->
-        <!--                        }">-->
-        <!--                {{ recipe.title }}-->
-        <!--              </router-link>-->
-        <!--            </li>-->
-        <!--          </ul>-->
-        <!--        </div>-->
-        <!--      </div>-->
       </div>
       <!--    <div class="commentItem container">-->
       <h4 style="margin-top: 10px; text-align: center; color: greenyellow">Comments</h4>
@@ -53,6 +34,12 @@
           <li v-for="(comment, index) in currentRecipe.comments" :key="index" class="list-items"
               style="list-style-type: circle">
             {{ comment.title }} {{ comment.comment }}
+            <router-link class="badge badge-warning" :to="{
+                                    name: 'update-comment',
+                                    params: {idrecipes: currentRecipe.idrecipes, idComment:comment.idcomment },
+                                }">
+              edit
+            </router-link>
           </li>
         </ul>
       </div>
@@ -82,6 +69,15 @@ export default {
           .catch(e => {
             console.log(e);
           });
+    },
+    alert() {
+      this.$swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'You don\' have access. Please login!',
+        footer: '<a href="https://en.wikipedia.org/wiki/Login">Why do I have this issue?</a>'
+      })
+      this.$router.push('/login');
     }
   },
   computed: {
@@ -91,13 +87,7 @@ export default {
   },
   mounted() {
     if (!this.currentUser || !this.$route.params.idrecipes) {
-      this.$router.push('/login');
-      this.$swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'You don\' have access. Please login!',
-        footer: '<a href="https://en.wikipedia.org/wiki/Login">Why do I have this issue?</a>'
-      })
+      this.alert();
     } else {
       this.message = '';
       this.getMyRecipe();

@@ -3,7 +3,7 @@
     <div class="card-container card">
       <div class="submit-form">
         <div v-if="!submitted">
-          <h4 style="margin-top: 10px; text-align: center; color: greenyellow">Update recipe</h4>
+          <h4 style="margin-top: 10px; text-align: center; color: greenyellow">Update Comment</h4>
           <div class="form-group">
             <label for="title">Title</label>
             <input
@@ -11,7 +11,7 @@
                 class="form-control"
                 id="title"
                 v-validate="'required'"
-                v-model="recipe.title"
+                v-model="comment.title"
                 name="title"
             />
             <!--suppress JSUnresolvedVariable -->
@@ -22,78 +22,38 @@
             >This field is required!
             </div>
           </div>
-
           <div class="form-group">
-            <label for="ingredients">Ingredients</label>
+            <label for="comment">Comment</label>
             <textarea
                 class="form-control"
-                id="ingredients"
+                id="comment"
                 v-validate="'required'"
-                v-model="recipe.ingredients"
+                v-model="comment.comment"
                 cols="10"
                 rows="5"
-                name="ingredients"
+                name="comment"
             />
             <!--suppress JSUnresolvedVariable -->
             <div
-                v-if="errors.has('ingredients')"
+                v-if="errors.has('comment')"
                 class="alert alert-danger"
                 role="alert"
             >This field is required!
             </div>
           </div>
 
-          <div class="form-group">
-            <label for="description">Description</label>
-            <textarea
-                class="form-control"
-                id="description"
-                required
-                v-model="recipe.description"
-                cols="10"
-                rows="5"
-                name="description"
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="recipe">Recipe</label>
-            <textarea
-                class="form-control"
-                id="recipe"
-                v-validate="'required'"
-                v-model="recipe.recipe"
-                cols="10"
-                rows="5"
-                name="recipe"
-            />
-            <!--suppress JSUnresolvedVariable -->
-            <div
-                v-if="errors.has('recipe')"
-                class="alert alert-danger"
-                role="alert"
-            >This field is required!
-            </div>
-          </div>
-
-          <div class="check-box">
-            <label for="published"> Show to public? </label>
-            <input
-                type="checkbox"
-                id="published"
-                v-model="recipe.published"
-                name="recipe"
-                value="true"
-            />
-          </div>
-
-          <button @click="updateRecipe" class="btn btn-success">Update</button>
-          <button @click="deleteRecipe" class="btn btn-danger">Delete</button>
+          <button @click="updateComment" class="btn btn-success">Update</button>
+          <button @click="deleteComment" class="btn btn-danger">Delete</button>
         </div>
 
         <div v-else>
-          <h4>Recipe updated successfully!</h4>
-          <button class="btn btn-success" @click="newRecipe">Back to my recipes</button>
+          <h4>Comment updated successfully!</h4>
+          <router-link class="link-items" :to="{
+                                    name: 'myRecipe-details',
+                                    params: {idrecipes: recipe.idrecipes },
+                                }">
+            <button class="btn btn-success">Back to my recipe</button>
+          </router-link>
         </div>
       </div>
     </div>
@@ -103,12 +63,14 @@
 <script>
 import RecipeDataService from "../../../services/RecipeDataService";
 import authHeader from "@/services/auth-header";
+import CommentDataService from "@/services/CommentDataService";
 
 export default {
-  name: "update-recipe",
+  name: "update-comment",
   data() {
     return {
       recipe: {},
+      comment: {},
       submitted: false
     };
   },
@@ -122,7 +84,8 @@ export default {
         footer: '<a href="https://en.wikipedia.org/wiki/Login">Why do I have this issue?</a>'
       })
     } else {
-      this.getMyRecipe()
+      this.getMyRecipe();
+      this.getMyComment();
     }
   },
   computed: {
@@ -131,9 +94,10 @@ export default {
     }
   },
   methods: {
-    deleteRecipe() {
+    deleteComment() {
       const userId = this.currentUser.id;
       const recipeId = this.recipe.idrecipes;
+      const commendId = this.comment.idcomment;
       this.$swal({
         title: "Delete this recipe?",
         text: "Are you sure? You won't be able to revert this!",
@@ -143,9 +107,9 @@ export default {
         confirmButtonText: "Yes, Delete it!"
       }).then((result) => {
         if (result.value) {
-          RecipeDataService.delete(userId, recipeId, authHeader())
+          CommentDataService.deleteComment(userId, recipeId, commendId, authHeader())
               .then(response => {
-                this.recipe.id = response.data.id;
+                this.comment.id = response.data.id;
                 this.submitted = true;
               })
               .catch(e => {
@@ -154,22 +118,20 @@ export default {
         }
       })
     },
-    updateRecipe() {
+    updateComment() {
       this.$validator.validateAll().then(isValid => {
         if (!isValid) {
           return
         }
         const userId = this.currentUser.id;
         const recipeId = this.recipe.idrecipes;
+        const commendId = this.comment.idcomment;
         const data = {
-          title: this.recipe.title,
-          ingredients: this.recipe.ingredients,
-          description: this.recipe.description,
-          recipe: this.recipe.recipe,
-          published: this.recipe.published
+          title: this.comment.title,
+          comment: this.comment.comment
         };
 
-        RecipeDataService.update(userId, recipeId, data, authHeader())
+        CommentDataService.updateComment(userId, recipeId, commendId, data, authHeader())
             .then(response => {
               this.recipe.id = response.data.id;
               this.submitted = true;
@@ -190,9 +152,18 @@ export default {
             console.log(e);
           });
     },
-    newRecipe() {
-      this.$router.push('/myRecipes');
-    }
+    getMyComment() {
+      const idusers = this.currentUser.id;
+      const idrecipes = this.$route.params.idrecipes;
+      const idComment = this.$route.params.idComment;
+      CommentDataService.getIndividualRecipeComment(idusers, idrecipes, idComment)
+          .then(response => {
+            this.comment = response.data;
+          })
+          .catch(e => {
+            console.log(e);
+          });
+    },
   }
 };
 </script>

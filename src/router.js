@@ -44,6 +44,31 @@ export default new Router({
             component: () => import("./components/Recipe")
         },
         {
+            path: "updateComment",
+            name: "update-comment",
+            component: () => import("./components/user_admin_view_components/user_components/updateComment")
+        },
+        {
+            path: "/users",
+            name: "users",
+            component: () => import("./components/user_admin_view_components/admin_components/usersList")
+        },
+        {
+            path: "/users/:idusers",
+            name: "user-details",
+            component: () => import("./components/user_admin_view_components/admin_components/user")
+        },
+        {
+            path: "updateUser",
+            name: "update-user",
+            component: () => import("./components/user_admin_view_components/admin_components/updateUser")
+        },
+        {
+            path: "/addUser",
+            name: "add-user",
+            component: () => import("./components/user_admin_view_components/admin_components/addUser")
+        },
+        {
             path: "/login",
             name: "login",
             component: () => import("./components/guest_view_components/Login")

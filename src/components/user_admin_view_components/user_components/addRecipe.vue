@@ -3,7 +3,7 @@
     <div class="card-container card">
       <div class="submit-form">
         <div v-if="!submitted">
-          <h4 style="margin-top: 10px; text-align: center; color: greenyellow">Add Recipe</h4>
+          <h4 style="margin-top: 10px; text-align: center; color: greenyellow">Creating new recipe</h4>
           <div class="form-group">
             <label for="title">Title</label>
             <input
@@ -152,7 +152,6 @@ export default {
         RecipeDataService.create(userId, data, authHeader())
             .then(response => {
               this.recipe.id = response.data.id;
-              console.log(response.data);
               this.submitted = true;
             })
             .catch(e => {
@@ -180,15 +179,9 @@ export default {
 }
 
 .card {
-  background-color: #f7f7f7;
+  border: none;
   padding: 20px 25px 30px;
   margin: 50px auto 25px;
-  -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
-  border-radius: 2px;
-  -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
 }
 
 @media screen and (max-width: 759px) {

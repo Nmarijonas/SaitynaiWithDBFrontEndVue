@@ -1,10 +1,18 @@
 import http from "../http-common";
 import axios from "axios";
 
+const http_link = "https://back-end-recipessite.herokuapp.com/api/";
+// const http_link = "http://localhost:8080/api/"
+
 class RecipeDataService {
 
     getAll() {
-        return http.get("/recipes");
+        return http.get("/recipes/published");
+    }
+
+    getRecipeOwnerId(idrecipes, authHeader) {
+        const headers = authHeader;
+        return axios.get(http_link + `recipes/${idrecipes}/user`, {headers});
     }
 
     getIndividualRecipes(idusers) {
@@ -20,37 +28,22 @@ class RecipeDataService {
     }
 
     create(idusers, data, authHeader) {
-        const http = "https://back-end-recipessite.herokuapp.com/api/";
         const headers = authHeader;
-        return axios.post(http + `users/${idusers}/recipes`, data,
+        return axios.post(http_link + `users/${idusers}/recipes`, data,
             {headers});
     }
 
     update(idusers, idrecipes, data, authHeader) {
-        const http = "https://back-end-recipessite.herokuapp.com/api/";
         const headers = authHeader;
-        return axios.put(http + `users/${idusers}/recipes/${idrecipes}`, data,
+        return axios.put(http_link + `users/${idusers}/recipes/${idrecipes}`, data,
             {headers});
     }
 
     delete(idusers, idrecipes, authHeader) {
-        const http = "https://back-end-recipessite.herokuapp.com/api/";
         const headers = authHeader;
-        return axios.delete(http + `users/${idusers}/recipes/${idrecipes}`,
+        return axios.delete(http_link + `users/${idusers}/recipes/${idrecipes}`,
             {headers});
     }
-
-// delete(id) {
-//     return http.delete(`/recipes/${id}`);
-// }
-
-// deleteAll() {
-//     return http.delete(`/recipes`);
-// }
-
-// findByTitle(title) {
-//     return http.get(`/recipes?title=${title}`);
-// }
 }
 
 export default new RecipeDataService();

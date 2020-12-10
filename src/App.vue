@@ -38,6 +38,12 @@ export default {
         role: ['', 'user', '']
       },
       {
+        text: "Users",
+        path: '/users',
+        icon: 'people',
+        role: ['', '', 'admin']
+      },
+      {
         text: 'Profile',
         path: '/profile',
         icon: 'person',

@@ -1,19 +1,20 @@
 <template>
   <div class="col-md-12">
     <div class="listRecipes listRecipes-container">
-      <h1>My Recipes</h1>
-      <ul id="recipesListId" v-if="retrieveRecipes">
-        <li id="recipesItemId" v-for="(recipe,index) in recipes" :key="index">
+      <h1>Users</h1>
+      <ul id="recipesListId" v-if="retrieveUsers">
+        <li id="recipesItemId" v-for="(user,index) in users" :key="index">
           <router-link class="link-items" :to="{
-                                    name: 'myRecipe-details',
-                                    params: {idrecipes: recipe.idrecipes },
+                                    name: 'user-details',
+                                    params: {idusers: user.idUsers },
                                 }">
-            {{ recipe.title }}
+            id:{{ user.idUsers }} // {{ user.username }} //
+            {{ user.roles[0].name }}
           </router-link>
         </li>
       </ul>
       <a style="width:100px; font-size: 15px;   margin: 20px auto" class="badge badge-success"
-         :href="'/addRecipe'"
+         :href="'/addUser'"
       >
         Create new
       </a>
@@ -22,29 +23,39 @@
 </template>
 
 <script>
-import RecipeDataService from "@/services/RecipeDataService";
+import UserDataService from "@/services/UserDataService";
+import authHeader from "@/services/auth-header";
 
 export default {
-  name: "recipes-list",
+  name: "users-list",
   data() {
     return {
-      recipes: []
+      users: []
     };
   },
   methods: {
-    retrieveRecipes() {
-      const userId = this.currentUser.id;
-      RecipeDataService.getIndividualRecipes(userId)
+    retrieveUsers() {
+      // const userId = this.currentUser.id;
+      UserDataService.getAll(authHeader())
           .then(response => {
-            this.recipes = response.data; // JSON are parsed automatically.
+            this.users = response.data; // JSON are parsed automatically.
           })
           .catch(e => {
             console.log(e);
           });
     },
     refreshList() {
-      this.retrieveRecipes();
+      this.retrieveUsers();
     },
+    alert() {
+      this.$swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'You don\' have access. Please login!',
+        footer: '<a href="https://en.wikipedia.org/wiki/Login">Why do I have this issue?</a>'
+      })
+      this.$router.push('/login');
+    }
   },
   computed: {
     currentUser() {
@@ -53,15 +64,11 @@ export default {
   },
   mounted() {
     if (!this.currentUser) {
-      this.$router.push('/login');
-      this.$swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'You don\' have access. Please login!',
-        footer: '<a href="https://en.wikipedia.org/wiki/Login">Why do I have this issue?</a>'
-      })
+      this.alert();
+    } else if (this.currentUser.roles[0] !== "ROLE_ADMIN") {
+      this.alert();
     } else {
-      this.retrieveRecipes();
+      this.retrieveUsers();
     }
   }
 };

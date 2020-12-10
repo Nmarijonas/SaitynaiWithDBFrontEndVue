@@ -1,29 +1,3 @@
-<!--<template>-->
-<!--  <div>-->
-<!--    <h4>Register</h4>-->
-<!--    <form @submit.prevent="register">-->
-<!--      <label for="name">Name</label>-->
-<!--      <div>-->
-<!--        <input id="name" type="text" v-model="name" required autofocus>-->
-<!--      </div>-->
-
-<!--      <label for="password">Password</label>-->
-<!--      <div>-->
-<!--        <input id="password" type="password" v-model="password" required>-->
-<!--      </div>-->
-
-<!--      <label for="password-confirm">Confirm Password</label>-->
-<!--      <div>-->
-<!--        <input id="password-confirm" type="password" v-model="password_confirmation" required>-->
-<!--      </div>-->
-
-<!--      <div>-->
-<!--        <button type="submit">Register</button>-->
-<!--      </div>-->
-<!--    </form>-->
-<!--  </div>-->
-<!--</template>-->
-
 <template>
   <div class="col-md-12">
     <div class="card card-container">
@@ -128,17 +102,15 @@ export default {
       message: ''
     };
   },
-  // computed: {
-  //   loggedIn() {
-  //     return this.$store.state.auth.status.loggedIn;
-  //   }
-  // },
-  // created() {
-  //   if (this.loggedIn) {
-  //     this.$router.push('/profile');
-  //   }
-  // },
   methods: {
+    alert() {
+      this.$router.push('/login');
+      this.$swal.fire({
+        icon: 'success',
+        title: 'Successful',
+        text: 'Now login and create some recipes!',
+      })
+    },
     handleSignup() {
       this.loading = true;
       this.$validator.validateAll().then(isValid => {
@@ -150,8 +122,7 @@ export default {
         if (this.user.username && this.user.password) {
           this.$store.dispatch('auth/signup', this.user).then(
               () => {
-                this.$router.push('/login');
-                this.$swal('Successful', 'Now login and create some recipes!', 'OK');
+                this.alert();
               },
               error => {
                 this.loading = false;

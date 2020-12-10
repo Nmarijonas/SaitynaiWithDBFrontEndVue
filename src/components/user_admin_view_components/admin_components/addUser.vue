@@ -7,7 +7,7 @@
           alt="avatar_2x"
           class="profile-img-card"
       />
-      <form name="form" @submit.prevent="handleLogin">
+      <form name="form" @submit.prevent="handleSignup">
         <div class="form-group">
           <label>Username</label>
           <label>
@@ -27,6 +27,7 @@
           >Username is required!
           </div>
         </div>
+
         <div class="form-group">
           <label>Password</label>
           <label>
@@ -36,6 +37,7 @@
                 type="password"
                 class="form-control"
                 name="password"
+                ref="password"
             />
           </label>
           <!--suppress JSUnresolvedVariable -->
@@ -46,7 +48,37 @@
           >Password is required!
           </div>
         </div>
+
         <div class="form-group">
+          <label>Repeat Password</label>
+          <label>
+            <input
+                v-model="user.repeated_password"
+                v-validate="'required|confirmed:password'"
+                type="password"
+                data-vv-as="password"
+                class="form-control"
+                name="repeat_password"
+            >
+          </label>
+          <!--suppress JSUnresolvedVariable -->
+
+          <div
+              v-if="errors.has('repeat_password')"
+              class="alert alert-danger"
+              role="alert"
+          >{{ errors.first('repeat_password') }}
+          </div>
+
+          <div class="form-group">
+            <!--suppress XmlInvalidId -->
+            <label for="role">Role</label>
+            <select v-model="pickedRole" name="role">
+              <option value="user" selected>user</option>
+              <option value="admin">admin</option>
+            </select>
+          </div>
+
           <button class="btn btn-primary btn-block" :disabled="loading">
             <span v-show="loading" class="spinner-border spinner-border-sm"></span>
             <span>Login</span>
@@ -56,62 +88,76 @@
           <div v-if="message" class="alert alert-danger" role="alert">{{ message }}</div>
         </div>
       </form>
-      <i style="font-size: 15px; margin-top: 40px;">Dont have an account?</i>
-      <router-link :to="{
-                             name: 'signup'
-                        }">
-        <a style="font-size: 15px; color: greenyellow; background-color: gray">Create new account </a>
-      </router-link>
     </div>
   </div>
 </template>
 
 <script>
-import User from '../../models/user';
+import User from "@/models/user";
+import UserDataService from "@/services/UserDataService";
+import authHeader from "@/services/auth-header";
 
 export default {
-  name: 'Login',
+  name: "create-user",
   data() {
     return {
-      user: new User('', ''),
+      pickedRole: "user",
+      user: new User('', '', ''),
       loading: false,
       message: ''
     };
   },
-  computed: {
-    loggedIn() {
-      return this.$store.state.auth.status.loggedIn;
-    }
-  },
-  created() {
-    if (this.loggedIn) {
-      this.$router.push('/profile');
-    }
-  },
   methods: {
-    handleLogin() {
+    alertNotLoggedIn() {
+      this.$swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'You don\' have access. Please login!',
+        footer: '<a href="https://en.wikipedia.org/wiki/Login">Why do I have this issue?</a>'
+      })
+      this.$router.push('/login');
+    },
+    alert() {
+      this.$router.push('/users');
+      this.$swal.fire({
+        icon: 'success',
+        title: 'Successful',
+        text: 'User created successfully!',
+      })
+    },
+    handleSignup() {
       this.loading = true;
       this.$validator.validateAll().then(isValid => {
         if (!isValid) {
           this.loading = false;
           return;
         }
-
-        if (this.user.username && this.user.password) {
-          this.$store.dispatch('auth/login', this.user).then(
-              () => {
-                this.$router.push('/profile');
-              },
-              error => {
-                this.loading = false;
-                this.message =
-                    (error.response && error.response.data && error.response.data.message) ||
-                    error.message ||
-                    error.toString();
-              }
-          );
-        }
+        const data = {
+          username: this.user.username,
+          password: this.user.password,
+          role: [this.pickedRole]
+        };
+        UserDataService.createUser(data, authHeader()).then(() => {
+          this.alert();
+        }).catch(e => {
+          console.log(e);
+        });
       });
+    }
+  },
+  computed: {
+    currentUser() {
+      return this.$store.state.auth.user;
+    },
+  },
+  mounted() {
+    if (!this.currentUser) {
+      this.alertNotLoggedIn();
+    } else if (this.currentUser.roles[0] !== "ROLE_ADMIN") {
+      this.alertNotLoggedIn();
+    } else {
+      this.message = '';
+      // this.getCurrentViewUser(this.$route.params.idusers)
     }
   }
 };
@@ -158,4 +204,6 @@ label {
     margin: 50px auto 25px;
   }
 }
+
+
 </style>
